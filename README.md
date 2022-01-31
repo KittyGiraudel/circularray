@@ -2,6 +2,8 @@
 
 Kind of portemanteau of “circular array” (not quite). Anyway, Circularr is a fast circular array implementation in JavaScript based on a doubly linked list.
 
+Read a [write up on how it works](https://kittygiraudel.com/2022/02/01/circular-array-in-js/).
+
 ```js
 const circle = new Circularr([0, 1, 2, 3, 4])
 
