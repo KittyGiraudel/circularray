@@ -11,10 +11,10 @@ class Node {
 }
 
 class CircularArray {
-  constructor(values = []) {
-    this.size = 0
-    this.pointer = null
+  size = 0
+  pointer = null
 
+  constructor(values = []) {
     if (Array.isArray(values)) values.forEach(value => this.push(value))
     else this.push(values)
   }
@@ -48,7 +48,7 @@ class CircularArray {
     return this.size
   }
 
-  insert(value, position) {
+  push(value) {
     const node = new Node(value)
 
     this.size++
@@ -60,50 +60,47 @@ class CircularArray {
       node.prev = this.pointer.prev
       node.prev.next = node
       this.pointer.prev = node
-      if (position === 'start') this.pointer = this.pointer.prev
     }
 
     return this
   }
 
-  push(value) {
-    return this.insert(value, 'end')
-  }
-
   unshift(value) {
-    return this.insert(value, 'start')
+    return this.push(value).rotate(+1)
   }
 
-  remove(position) {
-    if (this.size === 0) {
-      return undefined
-    }
+  pop() {
+    if (!this.pointer) return undefined
 
-    const value =
-      position === 'start' ? this.pointer.value : this.pointer.prev.value
+    const value = this.pointer.prev.value
 
     this.size--
 
     if (this.size === 0) {
       this.pointer = null
     } else {
-      if (position === 'end') {
-        this.pointer.prev.remove()
-      } else if (position === 'start') {
-        this.pointer = this.pointer.next
-        this.pointer.prev.remove()
-      }
+      this.pointer.prev.remove()
     }
 
     return value
   }
 
-  pop() {
-    return this.remove('end')
-  }
-
   shift() {
-    return this.remove('start')
+    if (!this.pointer) return undefined
+
+    const value = this.pointer.value
+
+    this.size--
+
+    if (this.size === 0) {
+      this.pointer = null
+    } else {
+      // Remove the pointer node, and move the pointer to the right.
+      this.pointer.remove()
+      this.pointer = this.pointer.next
+    }
+
+    return value
   }
 
   rotate(offset) {
