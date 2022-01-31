@@ -1,4 +1,19 @@
 {
+  "name": "circularr",
+  "version": "0.1.0",
+  "description": "A fast circular array implementation in JavaScript.",
+  "license": "MIT",
+  "author": "Kitty Giraudel (https://kittygiraudel.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KittyGiraudel/circularr"
+  },
+  "keywords": [
+    "circular",
+    "list",
+    "linked",
+    "queue"
+  ],
   "scripts": {
     "test": "ava --verbose --timeout=20s"
   },
