@@ -133,3 +133,13 @@ test('Circularr — Example', t => {
   circle.length = 0
   t.is(circle.length, 0)
 })
+
+test('Circularr — Josephus', t => {
+  const circle = new Circularr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+  while (circle.length > 1) {
+    circle.rotate(-1).shift()
+  }
+
+  t.is(circle.pop(), 3)
+})
