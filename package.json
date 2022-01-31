@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "test": "ava --verbose --timeout=20s"
+  },
+  "ava": {
+    "files": [
+      "./*spec.js"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^4.0.1"
+  }
+}
