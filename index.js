@@ -4,9 +4,18 @@ class Node {
     this.next = this.prev = null
   }
 
+  // Remove references to the need by attaching its two neighbors together,
+  // effectively removing itself from the chain.
   remove() {
     this.prev.next = this.next
     this.next.prev = this.prev
+  }
+
+  // Insert the node between the previous and next nodes.
+  insertBetween(prev, next) {
+    this.next = next
+    this.prev = prev
+    prev.next = next.prev = this
   }
 }
 
@@ -19,26 +28,26 @@ class CircularArray {
     else this.push(values)
   }
 
-  set length(n) {
-    if (n < 0) {
-      throw new Error(`Invalid negative length ${n} for CircularArray.`)
+  set length(length) {
+    if (length < 0) {
+      throw new Error(`Invalid negative length ${length} for Circularr.`)
     }
 
     // Shortcut for `.length = 0` usages where the goal is to empty the array.
-    if (n === 0) {
+    if (length === 0) {
       this.pointer = null
       this.size = 0
     } else {
       // If the new length is less than half the previous one, iterating from
       // the beginning of the array is faster than popping from the end.
-      if (n < this.size / 2) {
+      if (length < this.size / 2) {
         let curr = this.pointer
-        for (let i = 0; i < n - 1; i++) curr = curr.next
+        for (let i = 0; i < length - 1; i++) curr = curr.next
         curr.next = this.pointer
         this.pointer.prev = curr
-        this.size = n
+        this.size = length
       } else {
-        let diff = this.size - n
+        let diff = this.size - length
         while (diff--) this.pop()
       }
     }
@@ -54,12 +63,9 @@ class CircularArray {
     this.size++
 
     if (!this.pointer) {
-      node.next = node.prev = this.pointer = node
+      this.pointer = node.next = node.prev = node
     } else {
-      node.next = this.pointer
-      node.prev = this.pointer.prev
-      node.prev.next = node
-      this.pointer.prev = node
+      node.insertBetween(this.pointer.prev, this.pointer)
     }
 
     return this
