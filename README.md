@@ -49,6 +49,50 @@ circle.length = 0
 // -> Empty
 ```
 
+## Example
+
+A perfect example of when a circular array is handy is for the [Josephus problem](https://en.wikipedia.org/wiki/Josephus_problem).
+
+To put it simply: counting begins at a specified point in the circle and proceeds around the circle in a specified direction (typically clockwise). After a specified number of items are skipped, the next item is removed. The procedure is repeated with the remaining items, starting with the next one, going in the same direction and skipping the same number of items, until only one item remains.
+
+Considering we would skip one item out of 2, this is how it would be implemented. At every iteration, we rotate the circle clockwise by 1 and drop the first one, until we have only one item remaining.
+
+```js
+const circle = new Circularr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+while (circle.length > 1) circle.rotate(-1).shift()
+console.log('Remaining item is', circle.pop()) // 3
+```
+
+With an offset of 3:
+
+```js
+const circle = new Circularr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+while (circle.length > 1) circle.rotate(-2).shift()
+console.log('Remaining item is', circle.pop()) // 1
+```
+
+With an offset of _half_ the size of the circle (as suggested in [Advent of Code 2016 Day 19](https://adventofcode.com/2016/day/19)):
+
+```js
+const circle = new Circularr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+// Maintain a second pointer halfway through the circle to avoid having to
+// rotate the circle back and forth at every round. Unnecessary for small sets,
+// but vital for large ones (like the one in AoC).
+let offset = Math.floor(circle.size / 2) - 1
+let mirror = circle.pointer
+while (offset--) mirror = mirror.next
+
+while (circle.size > 1) {
+  mirror = mirror.next
+  mirror.remove()
+  circle.size--
+  if (circle.size % 2 === 0) mirror = mirror.next
+  circle.rotate(-1)
+}
+
+console.log('Remaining item is', circle.pop()) // 9
+```
+
 ## Development
 
 ```sh
