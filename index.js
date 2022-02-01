@@ -19,7 +19,7 @@ class Node {
   }
 }
 
-class CircularArray {
+class Circularray {
   size = 0
   pointer = null
 
@@ -144,4 +144,4 @@ class CircularArray {
   }
 }
 
-module.exports = CircularArray
+module.exports = Circularray

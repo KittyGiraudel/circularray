@@ -1,17 +1,17 @@
-# Circularr
+# Circularray
 
-Kind of portemanteau of “circular array” (not quite). Anyway, Circularr is a fast circular array implementation in JavaScript based on a doubly linked list.
+Portemanteau of “circular array”. Circularray is a fast circular array implementation in JavaScript based on a doubly linked list.
 
 Read a [write up on how it works](https://kittygiraudel.com/2022/02/01/circular-array-in-js/).
 
 ## Usage
 
-The concept of “pointer” is important to understand. A circularr a list of nodes that loops on itself, with a node marked as “the pointer.” Inserting nodes and remove nodes is done around that pointer, and that pointer can be moved at will.
+The concept of “pointer” is important to understand. A circularray a list of nodes that loops on itself, with a node marked as “the pointer.” Inserting nodes and remove nodes is done around that pointer, and that pointer can be moved at will.
 
 In the example below, the pointer is marked in brackets.
 
 ```js
-const circle = new Circularr([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+const circle = new Circularray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 // -> … 8 9 [0] 1 2 …
 
 // Adding items (front and back)
@@ -58,7 +58,7 @@ To put it simply: counting begins at a specified point in the circle and proceed
 Considering we would skip one item out of 2, this is how it would be implemented. At every iteration, we rotate the circle clockwise by 1 and drop the first one, until we have only one item remaining.
 
 ```js
-const circle = new Circularr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+const circle = new Circularray([1, 2, 3, 4, 5, 6, 7, 8, 9])
 while (circle.length > 1) circle.rotate(-1).shift()
 console.log('Remaining item is', circle.pop()) // 3
 ```
@@ -66,7 +66,7 @@ console.log('Remaining item is', circle.pop()) // 3
 With an offset of 3:
 
 ```js
-const circle = new Circularr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+const circle = new Circularray([1, 2, 3, 4, 5, 6, 7, 8, 9])
 while (circle.length > 1) circle.rotate(-2).shift()
 console.log('Remaining item is', circle.pop()) // 1
 ```
@@ -74,7 +74,7 @@ console.log('Remaining item is', circle.pop()) // 1
 With an offset of _half_ the size of the circle (as suggested in [Advent of Code 2016 Day 19](https://adventofcode.com/2016/day/19)):
 
 ```js
-const circle = new Circularr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+const circle = new Circularray([1, 2, 3, 4, 5, 6, 7, 8, 9])
 // Maintain a second pointer halfway through the circle to avoid having to
 // rotate the circle back and forth at every round. Unnecessary for small sets,
 // but vital for large ones (like the one in AoC).

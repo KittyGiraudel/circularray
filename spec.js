@@ -1,24 +1,24 @@
 const test = require('ava')
-const Circularr = require('.')
+const Circularray = require('.')
 
 const range = (size, startAt = 0) =>
   [...Array(size).keys()].map(i => i + startAt)
 
-test('Circularr - Empty', t => {
-  const a = new Circularr()
+test('Circularray - Empty', t => {
+  const a = new Circularray()
   t.is(a.pointer, null)
   t.is(a.size, 0)
 })
 
-test('Circularr - Single node (init)', t => {
-  const a = new Circularr(0)
+test('Circularray - Single node (init)', t => {
+  const a = new Circularray(0)
   t.is(a.pointer, a.pointer.prev)
   t.is(a.pointer, a.pointer.next)
   t.is(a.size, 1)
 })
 
-test('Circularr - Length (read)', t => {
-  const a = new Circularr([1, 0])
+test('Circularray - Length (read)', t => {
+  const a = new Circularray([1, 0])
 
   t.is(a.length, 2)
   a.push(1)
@@ -30,8 +30,8 @@ test('Circularr - Length (read)', t => {
   t.is(a.length, 0)
 })
 
-test('Circularr - Length (write)', t => {
-  const a = new Circularr([1, 0])
+test('Circularray - Length (write)', t => {
+  const a = new Circularray([1, 0])
 
   a.length = 0
   t.is(a.length, 0)
@@ -48,8 +48,8 @@ test('Circularr - Length (write)', t => {
   t.is(a.toArray().length, 3)
 })
 
-test('Circularr - Push', t => {
-  const a = new Circularr()
+test('Circularray - Push', t => {
+  const a = new Circularray()
   a.push(0)
   t.is(a.pointer.value, 0)
   a.push(1)
@@ -59,8 +59,8 @@ test('Circularr - Push', t => {
   t.deepEqual(a.toArray(), [0, 1, 2])
 })
 
-test('Circularr - Unshift', t => {
-  const a = new Circularr()
+test('Circularray - Unshift', t => {
+  const a = new Circularray()
   a.unshift(0)
   t.is(a.pointer.value, 0)
   t.deepEqual(a.toArray(), [0])
@@ -72,24 +72,24 @@ test('Circularr - Unshift', t => {
   t.deepEqual(a.toArray(), [2, 1, 0])
 })
 
-test('Circularr - Pop', t => {
-  const a = new Circularr([0, 1, 2])
+test('Circularray - Pop', t => {
+  const a = new Circularray([0, 1, 2])
   t.is(a.pop(), 2)
   t.is(a.pop(), 1)
   t.is(a.pop(), 0)
   t.is(a.pop(), undefined)
 })
 
-test('Circularr - Shift', t => {
-  const a = new Circularr([0, 1, 2])
+test('Circularray - Shift', t => {
+  const a = new Circularray([0, 1, 2])
   t.is(a.shift(), 0)
   t.is(a.shift(), 1)
   t.is(a.shift(), 2)
   t.is(a.shift(), undefined)
 })
 
-test('Circularr - Rotate', t => {
-  const a = new Circularr([0, 1, 2])
+test('Circularray - Rotate', t => {
+  const a = new Circularray([0, 1, 2])
   t.deepEqual(a.rotate(0).toArray(), [0, 1, 2]) // Noop
   t.deepEqual(a.rotate(1).toArray(), [2, 0, 1])
   t.deepEqual(a.rotate(2).toArray(), [0, 1, 2])
@@ -101,8 +101,8 @@ test('Circularr - Rotate', t => {
   t.deepEqual(a.rotate(-4).toArray(), [0, 1, 2]) // =-1
 })
 
-test('Circularr — Example', t => {
-  const circle = new Circularr([0, 1, 2, 3, 4])
+test('Circularray — Example', t => {
+  const circle = new Circularray([0, 1, 2, 3, 4])
 
   // Adding items (front and back)
   circle.unshift(-1)
@@ -134,8 +134,8 @@ test('Circularr — Example', t => {
   t.is(circle.length, 0)
 })
 
-test('Circularr — Josephus', t => {
-  const circle = new Circularr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+test('Circularray — Josephus', t => {
+  const circle = new Circularray([1, 2, 3, 4, 5, 6, 7, 8, 9])
 
   while (circle.length > 1) {
     circle.rotate(-1).shift()
@@ -144,18 +144,18 @@ test('Circularr — Josephus', t => {
   t.is(circle.pop(), 3)
 })
 
-test('Circularr — AoC 2017 Day 17', t => {
-  const memory = new Circularr(0)
+test('Circularray — AoC 2017 Day 17', t => {
+  const memory = new Circularray(0)
 
   for (let i = 1; i <= 2017; i++) memory.rotate(-394).push(i)
 
   t.is(memory.shift(), 926)
 })
 
-test('Circularr — AoC 2018 Day 09', t => {
+test('Circularray — AoC 2018 Day 09', t => {
   const run = (players, marbles) => {
     const scores = Array.from({ length: players }).map(() => 0)
-    const circle = new Circularr(0)
+    const circle = new Circularray(0)
 
     for (let marble = 1; marble <= marbles; marble++) {
       if (marble % 23 === 0) {

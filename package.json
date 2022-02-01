@@ -1,5 +1,5 @@
 {
-  "name": "circularr",
+  "name": "circularray",
   "version": "0.1.0",
   "description": "A fast circular array implementation in JavaScript.",
   "license": "MIT",
