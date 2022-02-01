@@ -143,3 +143,33 @@ test('Circularr — Josephus', t => {
 
   t.is(circle.pop(), 3)
 })
+
+test('Circularr — AoC 2017 Day 17', t => {
+  const memory = new Circularr(0)
+
+  for (let i = 1; i <= 2017; i++) memory.rotate(-394).push(i)
+
+  t.is(memory.shift(), 926)
+})
+
+test('Circularr — AoC 2018 Day 09', t => {
+  const run = (players, marbles) => {
+    const scores = Array.from({ length: players }).map(() => 0)
+    const circle = new Circularr(0)
+
+    for (let marble = 1; marble <= marbles; marble++) {
+      if (marble % 23 === 0) {
+        circle.rotate(7)
+        scores[marble % players] += marble + circle.pop()
+        circle.rotate(-1)
+      } else {
+        circle.rotate(-1).push(marble)
+      }
+    }
+
+    return Math.max(...scores)
+  }
+
+  t.is(run(468, 71010), 374287)
+  t.is(run(468, 71010 * 100), 3083412635)
+})
