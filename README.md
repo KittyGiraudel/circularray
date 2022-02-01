@@ -93,6 +93,15 @@ while (circle.size > 1) {
 console.log('Remaining item is', circle.pop()) // 9
 ```
 
+## Benchmark
+
+| Josephus with k=2 | Circularray | Array |
+| :---------------- | :---------- | :---- |
+| 10_000 items      | ~10ms       | ~4ms  |
+| 100_000 items     | ~25ms       | ~1.8s |
+| 500_000 items     | ~100ms      | ~45s  |
+| 1_000_000 items   | ~250ms      | ~4mn  |
+
 ## Development
 
 ```sh
