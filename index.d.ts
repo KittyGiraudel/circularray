@@ -27,3 +27,5 @@ declare namespace Circularray {
     toArray(direction: 'next' | 'prev'): Type[]
   }
 }
+
+export = Circularray.Circularray
