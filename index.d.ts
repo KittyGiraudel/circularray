@@ -24,7 +24,7 @@ declare namespace Circularray {
     pop(): Type
     shift(): Type
     rotate(offset: number): this
-    toArray(direction: 'next' | 'prev'): Type[]
+    toArray(direction?: 'next' | 'prev'): Type[]
   }
 }
 
