@@ -30,7 +30,7 @@ class Circularray {
 
   set length(length) {
     if (length < 0) {
-      throw new Error(`Invalid negative length ${length} for Circularr.`)
+      throw new Error(`Invalid negative length ${length} for Circularray.`)
     }
 
     // Shortcut for `.length = 0` usages where the goal is to empty the array.
