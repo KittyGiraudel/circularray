@@ -4,7 +4,7 @@ class Node {
     this.next = this.prev = null
   }
 
-  // Remove references to the need by attaching its two neighbors together,
+  // Remove references to the node by attaching its two neighbors together,
   // effectively removing itself from the chain.
   remove() {
     this.prev.next = this.next
